@@ -1,0 +1,27 @@
+# linux-dhcp-reservation
+
+
+host PC1 {
+hardware ethernet B8:CA:3A:AE:5C:3C
+fixed-address 10.1.1.1
+}
+
+
+host PC2 {
+hardware ethernet B8:CA:3A:AE:5C:4D
+fixed-address 10.1.1.2
+}
+
+
+host PC3 {
+hardware ethernet B8:CA:3A:AE:5C:5D
+fixed-address 10.1.1.3
+}
+
+
+host PC4 {
+hardware ethernet B8:CA:3A:AE:5C:6D
+fixed-address 10.1.1.4
+}
+
+
