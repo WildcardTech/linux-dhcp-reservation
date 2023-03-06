@@ -62,3 +62,5 @@ with open('devices.csv') as csvfile:
      #   maclist.close()
 
 # print("===========\nScript finished!\n")
+
+
