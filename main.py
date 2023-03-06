@@ -23,12 +23,8 @@ with open('devices.csv') as csvfile:
 row_count = len(d)
 
 # new "output" dir is created and txt script is created
-Path("Output").mkdir(parents=True, exist_ok=True)
+# Path("Output").mkdir(parents=True, exist_ok=True)
 
-if os_platform == "win32":
-    new_script = open("Output\\linux-dhcp-reservation.txt", "w")
-else:
-    new_script = open("Output/linux-dhcp-reservation.txt", "w")
 
 print("===========")
 
