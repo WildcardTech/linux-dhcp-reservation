@@ -39,8 +39,8 @@ with open('devices.csv') as csvfile:
             for row in readCSV:
                 sys.stdout = f  # Change the standard output to the file we created.
                 print('host', row[1], '{', file=f)
-                print('hardware ethernet', row[0], file=f)
-                print('fixed-address', row[2], file=f)
+                print('hardware ethernet', row[0] + ";", file=f)
+                print('fixed-address', row[2] + ";", file=f)
                 print('}', file=f)
                 print("\n", file=f)
 
