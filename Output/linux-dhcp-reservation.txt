@@ -1,13 +1,2 @@
 # linux-dhcp-reservation
 
-host PC1:10.1.1.1 { 
-hardware ethernet B8:CA:3A:AE:5C:3C
-fixed-address PC1:10.1.1.1
-}
-
-host PC2:10.1.1.2 { 
-hardware ethernet B8:CA:3A:AE:5C:3D
-fixed-address PC2:10.1.1.2
-}
-
-# end

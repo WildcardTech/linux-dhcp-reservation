@@ -1,8 +1,9 @@
 import os
 import sys
-# import csv
+import csv
 from csv import reader
 from pathlib import Path
+from typing import List
 
 # gets current file path
 cwd = os.getcwd()
@@ -10,16 +11,21 @@ cwd = os.getcwd()
 # gets system platform
 os_platform = sys.platform
 
-open_file = open('devices.csv')
-read_file = reader(open_file)
-
 # makes file contents a dictionary
-devices = dict(read_file)
-# devices = csv.DictReader(read_file)
-# removes column headers
-del devices["MAC"]
+with open('devices.csv') as csvfile:
+    reader = csv.DictReader(csvfile, skipinitialspace=True)
+    d = {name: [] for name in reader.fieldnames}
+    for row in reader:
+        for name in reader.fieldnames:
+            d[name].append(row[name])
 
-num_of_addr = len(devices)
+print()
+
+
+row_count = len(d)
+
+
+
 
 # new "output" dir is created and txt script is created
 Path("Output").mkdir(parents=True, exist_ok=True)
@@ -30,28 +36,38 @@ else:
     new_script = open("Output/linux-dhcp-reservation.txt", "w")
 
 print("===========")
-print("There is " + str(num_of_addr) + " addresses listed in linux-dhcp-reservation.csv\n")
+print("There is " + str(row_count) + " addresses listed in linux-dhcp-reservation.csv\n")
 
 print("Starting script...\n===========")
-print("  MAC Address                Name            IP")
-print("  ----------                 ------          ------")
+
 
 new_script.write("# linux-dhcp-reservation\n\n")
 
-# List of address object names
-address_objects = [1]
+with open('devices.csv') as csvfile:
+    # Return a reader object which will
+    # iterate over lines in the given csvfile.
+    readCSV = csv.reader(csvfile, delimiter=',')
+    for row in readCSV:
+        print('host', row[1],'{')
+        print('hardware ethernet',row[0])
+        print('fixed-address', row[2])
+        print('}')
+        print("\n")
 
-for addr, mac in devices.items():
-    # Adds address object names to address_objects list
-    address_object = str(mac)  # str(addr) + str(mac)
-    address_objects.append(address_object)
+# with open('devices.csv', 'r') as f:
+#  file = csv.reader(f)
+#  my_list = list(file)
+# print(my_list)
 
-    # Writes fortigate script to file
-    new_script.write(
-        "host {mac} {{ \nhardware ethernet {addr}\nfixed-address {mac}\n}}\n\n".format(addr=addr, mac=mac))
-    print("Added {addr}    {mac}".format(addr=addr, mac=mac))
+        with open('linux-dhcp-reservation.txt', 'w') as f:
+            for row in readCSV:
+                sys.stdout = f  # Change the standard output to the file we created.
+                print('host', row[1],'{', file=f)
+                print('hardware ethernet', row[0], file=f)
+                print('fixed-address', row[2], file=f)
+                print('}',file=f)
+                print("\n", file=f)
 
-new_script.write("# end\n")
-new_script.close()
+
 
 print("===========\nScript finished!\n")
