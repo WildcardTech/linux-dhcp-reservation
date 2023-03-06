@@ -64,3 +64,6 @@ with open('devices.csv') as csvfile:
 # print("===========\nScript finished!\n")
 
 
+
+
+
