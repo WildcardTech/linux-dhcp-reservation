@@ -1,9 +1,6 @@
 import os
 import sys
 import csv
-from csv import reader
-from pathlib import Path
-from typing import List, TextIO
 
 # gets current file path
 cwd = os.getcwd()
@@ -18,7 +15,6 @@ with open('devices.csv') as csvfile:
     for row in reader:
         for name in reader.fieldnames:
             d[name].append(row[name])
-
 
 row_count = len(d)
 
@@ -38,28 +34,14 @@ with open('devices.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     for row in readCSV:
 
-
-# with open('devices.csv', 'r') as f:
-#  file = csv.reader(f)
-#  my_list = list(file)
-# print(my_list)
-
-      #  maclist = open("linux-dhcp-reservation.txt", "r")
-      #  read_file = csv.reader(maclist)
         with open('linux-dhcp-reservation.txt', 'w') as f:
             print("# linux-dhcp-reservation\n\n", file=f)
             for row in readCSV:
                 sys.stdout = f  # Change the standard output to the file we created.
-                print('host', row[1],'{', file=f)
+                print('host', row[1], '{', file=f)
                 print('hardware ethernet', row[0], file=f)
                 print('fixed-address', row[2], file=f)
-                print('}',file=f)
+                print('}', file=f)
                 print("\n", file=f)
-     #   maclist.close()
 
 # print("===========\nScript finished!\n")
-
-
-
-
-
